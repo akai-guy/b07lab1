@@ -22,6 +22,9 @@ public class Polynomial{
 			if(coefficients.length <= i){
 				sum_coefficients[i] = compare.coefficients[i];
 			}
+			else if(compare.coefficients.length <= i){
+				sum_coefficients[i] = coefficients[i];
+			}
 			else{
 				sum_coefficients[i] = coefficients[i] + compare.coefficients[i];
 			}

@@ -56,26 +56,40 @@ public class Polynomial{
 			poly_string = String.join("",poly_split_string);
 			poly_split_string = poly_string.split("\\+");
 			
-			//for(int k=0;k<poly_split_string.length;k++) {
-			//	System.out.println(poly_split_string[k]);
-			//}
 			String[] term;
 			
 			for(int j=0;j<poly_split_string.length;j++) {
+				if(poly_split_string[j].equals("x")) {
+					all_coefficients[1] = 1.0;
+					continue;
+				}
 				term = poly_split_string[j].split("x");
-				double coefficient = Double.parseDouble(term[0]);
+				double coefficient;
+				if(!(poly_split_string[j].charAt(0)=='-' && poly_split_string[j].charAt(1)=='x')) {
+					coefficient = Double.parseDouble(term[0]);
+				}
+				else {
+					coefficient = -1.0;
+				}
 				int power;
 				if(poly_split_string[j].charAt(poly_split_string[j].length()-1)=='x') {
 					power = 1;
-				}
-				else if (term.length==1) {
+				}				
+				else if (poly_split_string[j].indexOf('x')==-1) {
 					power = 0;
 				}
 				else {
 					power = Integer.parseInt(term[1]);
 				}
+				if(poly_split_string[j].charAt(0)=='x') {
+					all_coefficients[power] = 1.0;
+					continue;
+				}
+				else if (poly_split_string[j].charAt(0)=='-' && poly_split_string[j].charAt(1)=='x'){
+					all_coefficients[power] = -1.0;
+					continue;
+				}
 				all_coefficients[power] = coefficient;
-				//System.out.println(j+", "+ power+", "+ coefficient);
 			}
 			
 			Polynomial placeholder = new Polynomial(all_coefficients);
@@ -148,6 +162,25 @@ public class Polynomial{
 		
 		for (int i = 1;i<non_zero_coefficients.length;i++) {
 			int exponent = exponents[i];
+			if (non_zero_coefficients[i]==1) {
+				if(exponent==1) {
+					store_poly = store_poly + "+x";
+				}
+				else {
+					store_poly = store_poly + "+x"+String.valueOf(exponent);
+				}
+				
+				continue;
+			}
+			if (non_zero_coefficients[i]==-1) {
+				if(exponent==1) {
+					store_poly = store_poly + "-x";
+				}
+				else {
+					store_poly = store_poly + "-x"+String.valueOf(exponent);
+				}
+				continue;
+			}
 			if (non_zero_coefficients[i]%1==0) {
 				int coefficient = (int)Math.round(non_zero_coefficients[i]);
 				

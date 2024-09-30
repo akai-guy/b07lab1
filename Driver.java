@@ -17,14 +17,15 @@ public class Driver {
 		    }
 		    try {
 		    	FileWriter myWriter = new FileWriter("polystring.txt");
-				myWriter.write("5+2.5x+5x2");
+				myWriter.write("5+x+5x3-x4");
 				myWriter.close();
 				System.out.println("Successfully wrote to the file.");
 				Polynomial p = new Polynomial(myObj);
 				System.out.println(p.non_zero_coefficients[0]);
 				System.out.println(p.non_zero_coefficients[1]);
 				System.out.println(p.non_zero_coefficients[2]);
-				if(p.evaluate(2)==30){
+				System.out.println(p.non_zero_coefficients[3]);
+				if(p.evaluate(2)==31){
 					System.out.println("File constructor and eval fcn are accurate");
 				}
 				else{
@@ -105,7 +106,7 @@ public class Driver {
 			System.out.println(p_get.non_zero_coefficients[7]);
 			
 
-		    double [] c_save2 = {-4};
+		    double [] c_save2 = {-4, 1, -1};
 			Polynomial p_save2 = new Polynomial(c_save2);
 			p_save2.saveToFile("polystring2.txt");
 			
